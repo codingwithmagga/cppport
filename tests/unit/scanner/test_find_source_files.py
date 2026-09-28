@@ -1,3 +1,4 @@
+import pytest
 from pathlib import Path
 
 from scanner.find_source_files import find_source_files
@@ -54,3 +55,7 @@ def test_non_cpp_file_types():
     assert {f.name for f in result} == {
         "main.cpp",
     }
+
+def test_directory_not_found():
+    with pytest.raises(FileNotFoundError, match="Directory not found"):
+        find_source_files(Path("does_not_exist"))

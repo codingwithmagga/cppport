@@ -2,6 +2,9 @@ from pathlib import Path
 
 def find_source_files(path: Path) -> list[Path]:
 
+    if not path.exists():
+        raise FileNotFoundError("Directory not found")
+
     source_files = []
 
     for file in path.rglob("*"):
