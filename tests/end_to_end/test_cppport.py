@@ -33,3 +33,14 @@ def test_multiple_source_files():
             
     assert result.returncode == 0
     assert "found 3 source files." in result.stdout.lower()
+
+def test_non_existent_path():
+    non_existent_path = TESTDATA / "non_existent_path"
+    result = subprocess.run(
+        ["cppport", non_existent_path],
+        capture_output=True,
+        text=True,
+    )
+            
+    assert result.returncode == 2
+    assert f"Directoy {non_existent_path} not found." in result.stdout

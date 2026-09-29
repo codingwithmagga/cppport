@@ -21,7 +21,12 @@ def main() -> None:
         parser.print_help()
         raise SystemExit(0)
 
-    files = find_source_files(args.folder)
+    try:
+        files = find_source_files(args.folder)
+    except:
+        print(f"Directoy {args.folder} not found.")
+        raise SystemExit(2)  
+    
     count = len(files)
 
     if count == 1:
