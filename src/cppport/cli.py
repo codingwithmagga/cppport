@@ -23,7 +23,7 @@ def main() -> None:
 
     try:
         files = find_source_files(args.folder)
-    except:
+    except FileNotFoundError:
         print(f"Directoy {args.folder} not found.")
         raise SystemExit(2)  
     
