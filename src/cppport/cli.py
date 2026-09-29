@@ -24,7 +24,7 @@ def main() -> None:
     try:
         files = find_source_files(args.folder)
     except FileNotFoundError:
-        print(f"Directoy {args.folder} not found.")
+        print(f"Directory {args.folder} not found.")
         raise SystemExit(2)  
     
     count = len(files)

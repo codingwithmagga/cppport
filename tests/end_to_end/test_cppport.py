@@ -43,4 +43,4 @@ def test_non_existent_path():
     )
             
     assert result.returncode == 2
-    assert f"Directoy {non_existent_path} not found." in result.stdout
+    assert f"Directory {non_existent_path} not found." in result.stdout
