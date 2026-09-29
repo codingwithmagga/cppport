@@ -15,7 +15,6 @@ def test_cli_without_arguments():
     assert "usage" in result.stdout.lower()
 
 def test_one_source_file():
-    print(TESTDATA / "one_source_file")
     result = subprocess.run(
         ["cppport", TESTDATA / "one_source_file"],
         capture_output=True,
@@ -24,3 +23,13 @@ def test_one_source_file():
             
     assert result.returncode == 0
     assert "found 1 source file." in result.stdout.lower()
+
+def test_multiple_source_files():
+    result = subprocess.run(
+        ["cppport", TESTDATA / "multiple_source_files"],
+        capture_output=True,
+        text=True,
+    )
+            
+    assert result.returncode == 0
+    assert "found 3 source files." in result.stdout.lower()
