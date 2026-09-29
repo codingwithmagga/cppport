@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 from pathlib import Path
 from scanner.find_source_files import find_source_files
@@ -19,13 +20,13 @@ def main() -> None:
 
     if not args.folder:
         parser.print_help()
-        raise SystemExit(0)
+        raise sys.exit(0)
 
     try:
         files = find_source_files(args.folder)
     except FileNotFoundError:
         print(f"Directory {args.folder} not found.")
-        raise SystemExit(2)  
+        raise sys.exit(2)  
     
     count = len(files)
 
