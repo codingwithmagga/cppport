@@ -1,0 +1,48 @@
+from pathlib import Path
+from dataclasses import dataclass
+
+import re
+
+@dataclass
+class Finding:
+    file: Path
+    line: int
+    symbol: str
+
+WINDOWS_APIS = {
+    "windows.h",
+    "CreateFileW",
+    "CreateFileA",
+    "GetModuleHandle",
+    "GetProcAddress",
+    "LoadLibrary",
+    "LoadLibraryW",
+    "LoadLibraryA",
+    "CreateProcess",
+    "CreateNamedPipe",
+    "GetLastError",
+    "WaitForSingleObject",
+    "Sleep",
+    "DWORD",
+    "HANDLE",
+    "LPCTSTR",
+}
+
+def scan_files(files: list[Path]) -> list[Finding]:
+
+    results = []
+
+    for file in files:
+        with open(file) as f:
+            for line_number, line in enumerate(f, start=1):
+                for symbol in WINDOWS_APIS:
+                    if re.search(rf"\b{symbol}\b", line):
+                        results.append(
+                            Finding(
+                                file=file,
+                                line=line_number,
+                                symbol=symbol,
+                            )
+                        )
+
+    return results
