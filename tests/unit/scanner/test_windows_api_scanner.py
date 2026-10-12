@@ -61,3 +61,11 @@ def test_no_findings():
     result = scan_files([testfile])
     
     assert len(result) == 0
+
+def test_similar_names():
+
+    testfile = TESTDATA / "similar_names" / "main.cpp"
+
+    result = scan_files([testfile])
+    
+    assert len(result) == 0
