@@ -14,6 +14,7 @@ WINDOWS_APIS = {
     "CreateFileW",
     "CreateFileA",
     "GetModuleHandle",
+    "GetModuleHandleA",
     "GetProcAddress",
     "LoadLibrary",
     "LoadLibraryW",
