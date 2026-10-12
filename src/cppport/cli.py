@@ -37,6 +37,12 @@ def main() -> None:
         print(f"Found 1 Windows API usage.")
     else:
         print(f"Found {count} Windows API usages")
+    
+    if count > 0:
+        print("")
+
+        for finding in findings:
+            print(f"{finding.file}:{finding.line} {finding.symbol}")
 
 if __name__ == "__main__":
     main()

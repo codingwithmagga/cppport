@@ -33,7 +33,7 @@ def test_one_source_file_windows_h():
             
     assert result.returncode == 0
     assert "found 1 windows api usage" in result.stdout.lower()
-    assert "found 1 windows api usage" in result.stdout.lower()
+    assert "main.cpp:1 windows.h" in result.stdout.lower()
 
 def test_multi_file_test():
     result = subprocess.run(
@@ -44,7 +44,9 @@ def test_multi_file_test():
             
     assert result.returncode == 0
     assert "found 3 windows api usages" in result.stdout.lower()
-    assert "found 3 windows api usages" in result.stdout.lower()
+    assert "main.cpp:1 windows.h" in result.stdout.lower()
+    assert "test.h:1 windows.h" in result.stdout.lower()
+    assert "test.h:4 createfilea" in result.stdout.lower()   
 
 def test_one_source_file_multiple_findings():
     result = subprocess.run(
