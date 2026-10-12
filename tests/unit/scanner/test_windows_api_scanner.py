@@ -27,8 +27,6 @@ def test_single_file_multiple_findings():
 
     result = scan_files([testfile])
 
-    print(result)
-
     assert len(result) == 9
 
     assert [(f.line, f.symbol) for f in result] == [
@@ -38,7 +36,20 @@ def test_single_file_multiple_findings():
         (10, "LoadLibraryA"),
         (11, "LoadLibraryW"),
         (13, "GetModuleHandleA"),
-        (14, "GetProcAddress"),
         (14, "CreateFileW"),
         (14, "GetModuleHandleA"),
+        (14, "GetProcAddress"),
+    ]
+
+def test_multi_file_test():
+
+    testfile_main = TESTDATA / "multi_file_test" / "main.cpp"
+    testfile_test_h = TESTDATA / "multi_file_test" / "test.h"
+
+    result = scan_files([testfile_main, testfile_test_h])
+
+    assert [(f.file, f.line, f.symbol) for f in result] == [
+        (testfile_main, 1, "windows.h"),
+        (testfile_test_h, 1, "windows.h"),
+        (testfile_test_h, 4, "CreateFileA"),
     ]

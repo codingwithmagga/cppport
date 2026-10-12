@@ -9,7 +9,7 @@ class Finding:
     line: int
     symbol: str
 
-WINDOWS_APIS = {
+WINDOWS_APIS = [
     "windows.h",
     "CreateFileW",
     "CreateFileA",
@@ -27,7 +27,7 @@ WINDOWS_APIS = {
     "DWORD",
     "HANDLE",
     "LPCTSTR",
-}
+]
 
 def scan_files(files: list[Path]) -> list[Finding]:
 
@@ -45,5 +45,8 @@ def scan_files(files: list[Path]) -> list[Finding]:
                                 symbol=symbol,
                             )
                         )
+
+    # For deterministic results the result list is sorted
+    results.sort(key=lambda f: (str(f.file), f.line, f.symbol))
 
     return results
