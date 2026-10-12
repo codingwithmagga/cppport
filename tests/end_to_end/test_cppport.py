@@ -57,7 +57,6 @@ def test_one_source_file_multiple_findings():
             
     assert result.returncode == 0
     assert "found 9 windows api usages" in result.stdout.lower()
-    assert "found 9 windows api usages" in result.stdout.lower()
 
 def test_non_existent_path():
     non_existent_path = TESTDATA / "non_existent_path"
