@@ -3,6 +3,7 @@ import sys
 
 from pathlib import Path
 from scanner.find_source_files import find_source_files
+from scanner.windows_api_scanner import scan_files
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -28,12 +29,20 @@ def main() -> None:
         print(f"Directory {args.folder} not found.")
         raise sys.exit(2)  
     
-    count = len(files)
+    findings = scan_files(files)
+    
+    count = len(findings)
 
     if count == 1:
-        print(f"Found {count} source file.")
+        print("Found 1 Windows API usage.")
     else:
-        print(f"Found {count} source files.")
+        print(f"Found {count} Windows API usages")
+    
+    if count > 0:
+        print("")
+
+        for finding in findings:
+            print(f"{finding.file}:{finding.line} {finding.symbol}")
 
 if __name__ == "__main__":
     main()
