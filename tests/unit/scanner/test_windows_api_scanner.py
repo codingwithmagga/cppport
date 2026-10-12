@@ -53,3 +53,11 @@ def test_multi_file_test():
         (testfile_test_h, 1, "windows.h"),
         (testfile_test_h, 4, "CreateFileA"),
     ]
+
+def test_no_findings():
+
+    testfile = TESTDATA / "no_findings" / "main.cpp"
+
+    result = scan_files([testfile])
+    
+    assert len(result) == 0
