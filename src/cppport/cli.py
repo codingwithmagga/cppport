@@ -34,7 +34,7 @@ def main() -> None:
     count = len(findings)
 
     if count == 1:
-        print(f"Found 1 Windows API usage.")
+        print("Found 1 Windows API usage.")
     else:
         print(f"Found {count} Windows API usages")
     
