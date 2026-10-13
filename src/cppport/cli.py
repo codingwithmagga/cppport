@@ -34,7 +34,7 @@ def print_findings(findings: list[Finding]) -> None:
     if count == 0:
         return
 
-    print("")
+    print()
     for finding in findings:
         print(f"{finding.file}:{finding.line} {finding.symbol}")
 
@@ -50,7 +50,7 @@ def run(folder: Path) -> int:
     
     return SUCCESS
 
-def main() -> None:
+def main() -> int:
     parser = create_parser()
 
     if len(sys.argv) == 1:
