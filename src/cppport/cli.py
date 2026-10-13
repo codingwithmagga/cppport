@@ -18,15 +18,6 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument('folder', type=Path, nargs="?")
     return parser
 
-def run(folder: Path) -> list[Finding]: 
-    try:
-        files = find_source_files(folder)
-    except FileNotFoundError:
-        print(f"Directory {folder} not found.")
-        raise sys.exit(2)  
-    
-    return scan_files(files)
-
 def print_findings(findings: list[Finding]) -> None: 
     count = len(findings)
 
@@ -42,17 +33,28 @@ def print_findings(findings: list[Finding]) -> None:
     for finding in findings:
         print(f"{finding.file}:{finding.line} {finding.symbol}")
 
+def run(folder: Path) -> int: 
+    try:
+        files = find_source_files(folder)
+    except FileNotFoundError:
+        print(f"Directory {folder} not found.")
+        return 2  
+
+    findings = scan_files(files)
+    print_findings(findings)
+    
+    return 0
+
 def main() -> None:
     parser = create_parser()
 
     if len(sys.argv) == 1:
         parser.print_help()
-        return
+        return 0
 
     args = parser.parse_args()
-
-    findings = run(args.folder)
-    print_findings(findings)
+    
+    return run(args.folder)
 
 if __name__ == "__main__":
-    main()
+     raise SystemExit(main())
