@@ -5,6 +5,9 @@ from pathlib import Path
 from scanner.find_source_files import find_source_files
 from scanner.windows_api_scanner import scan_files, Finding
 
+SUCCESS = 0
+ERROR_DIRECTORY_NOT_FOUND = 2
+
 def create_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
             prog='cppport', 
@@ -38,19 +41,19 @@ def run(folder: Path) -> int:
         files = find_source_files(folder)
     except FileNotFoundError:
         print(f"Directory {folder} not found.")
-        return 2  
+        return ERROR_DIRECTORY_NOT_FOUND 
 
     findings = scan_files(files)
     print_findings(findings)
     
-    return 0
+    return SUCCESS
 
 def main() -> None:
     parser = create_parser()
 
     if len(sys.argv) == 1:
         parser.print_help()
-        return 0
+        return SUCCESS
 
     args = parser.parse_args()
     
