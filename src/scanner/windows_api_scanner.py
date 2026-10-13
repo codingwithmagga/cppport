@@ -33,7 +33,7 @@ def find_symbols(line: str) -> list[str]:
     return [
         symbol
         for symbol in WINDOWS_APIS
-        if re.search(rf"\b{symbol}\b", line)
+        if re.search(rf"\b{re.escape(symbol)}\b", line)
     ]
 
 def scan_file(file: Path) -> list[Finding]:
