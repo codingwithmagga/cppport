@@ -50,10 +50,6 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    if not args.folder:
-        parser.print_help()
-        raise sys.exit(0)
-
     findings = run(args.folder)
     print_findings(findings)
 
