@@ -35,11 +35,12 @@ def print_findings(findings: list[Finding]) -> None:
     else:
         print(f"Found {count} Windows API usages")
     
-    if count > 0:
-        print("")
+    if count == 0:
+        return
 
-        for finding in findings:
-            print(f"{finding.file}:{finding.line} {finding.symbol}")
+    print("")
+    for finding in findings:
+        print(f"{finding.file}:{finding.line} {finding.symbol}")
 
 def main() -> None:
     parser = create_parser()
