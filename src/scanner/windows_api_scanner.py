@@ -40,7 +40,7 @@ def scan_file(file: Path) -> list[Finding]:
     
     results = []
 
-    with open(file) as f:
+    with open(file, encoding="utf-8") as f:
         for line_number, line in enumerate(f, start=1):
             for symbol in find_symbols(line):
                 results.append(
