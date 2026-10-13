@@ -3,7 +3,7 @@ import sys
 
 from pathlib import Path
 from scanner.find_source_files import find_source_files
-from scanner.windows_api_scanner import scan_files
+from scanner.windows_api_scanner import scan_files, Finding
 
 def create_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -18,6 +18,15 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument('folder', type=Path, nargs="?")
     return parser
 
+def run(folder: Path) -> list[Finding]: 
+    try:
+        files = find_source_files(folder)
+    except FileNotFoundError:
+        print(f"Directory {folder} not found.")
+        raise sys.exit(2)  
+    
+    return scan_files(files)
+
 def main() -> None:
     parser = create_parser()
 
@@ -31,14 +40,7 @@ def main() -> None:
         parser.print_help()
         raise sys.exit(0)
 
-    try:
-        files = find_source_files(args.folder)
-    except FileNotFoundError:
-        print(f"Directory {args.folder} not found.")
-        raise sys.exit(2)  
-    
-    findings = scan_files(files)
-    
+    findings = run(args.folder)
     count = len(findings)
 
     if count == 1:
