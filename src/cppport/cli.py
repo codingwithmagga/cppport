@@ -21,14 +21,16 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument('folder', type=Path, nargs="?")
     return parser
 
-def print_findings(findings: list[Finding]) -> None: 
-    count = len(findings)
-
+def print_summary(count: int) -> None:
     if count == 1:
         print("Found 1 Windows API usage.")
     else:
         print(f"Found {count} Windows API usages")
-    
+
+def print_findings(findings: list[Finding]) -> None: 
+    count = len(findings)
+
+    print_summary(count)
     if count == 0:
         return
 
