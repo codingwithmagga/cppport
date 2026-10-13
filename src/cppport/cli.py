@@ -27,6 +27,20 @@ def run(folder: Path) -> list[Finding]:
     
     return scan_files(files)
 
+def print_findings(findings: list[Finding]) -> None: 
+    count = len(findings)
+
+    if count == 1:
+        print("Found 1 Windows API usage.")
+    else:
+        print(f"Found {count} Windows API usages")
+    
+    if count > 0:
+        print("")
+
+        for finding in findings:
+            print(f"{finding.file}:{finding.line} {finding.symbol}")
+
 def main() -> None:
     parser = create_parser()
 
@@ -41,18 +55,7 @@ def main() -> None:
         raise sys.exit(0)
 
     findings = run(args.folder)
-    count = len(findings)
-
-    if count == 1:
-        print("Found 1 Windows API usage.")
-    else:
-        print(f"Found {count} Windows API usages")
-    
-    if count > 0:
-        print("")
-
-        for finding in findings:
-            print(f"{finding.file}:{finding.line} {finding.symbol}")
+    print_findings(findings)
 
 if __name__ == "__main__":
     main()
