@@ -9,7 +9,7 @@ class Finding:
     line: int
     symbol: str
 
-WINDOWS_APIS = [
+WINDOWS_APIS: list[str] = [
     "windows.h",
     "CreateFileW",
     "CreateFileA",
