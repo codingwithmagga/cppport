@@ -5,17 +5,25 @@ from pathlib import Path
 from scanner.find_source_files import find_source_files
 from scanner.windows_api_scanner import scan_files
 
-def main() -> None:
+def create_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog='cppport', 
-        usage='%(prog)s [options]',
-        description=(
-            "A portability-focused linter for C++ projects "
-            "that detects Windows-specific issues that hinder Linux compilation."
-        ),
-    )
+            prog='cppport', 
+            usage='%(prog)s [options]',
+            description=(
+                "A portability-focused linter for C++ projects "
+                "that detects Windows-specific issues that hinder Linux compilation."
+            ),
+        )
     
     parser.add_argument('folder', type=Path, nargs="?")
+    return parser
+
+def main() -> None:
+    parser = create_parser()
+
+    if len(sys.argv) == 1:
+        parser.print_help()
+        return
 
     args = parser.parse_args()
 
